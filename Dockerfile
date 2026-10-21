@@ -1,4 +1,4 @@
-FROM php:8.5-fpm-alpine AS builder
+FROM php:8.5.12-fpm-alpine AS builder
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
@@ -22,7 +22,7 @@ RUN set -eux; \
     && find vendor/ -type f \( -name '*.md' -o -name 'LICENSE*' -o -name 'CHANGELOG*' -o -name '.gitignore' -o -name '.gitattributes' \) -delete \
     && find vendor/ -type d \( -name 'test' -o -name 'tests' -o -name 'Tests' -o -name 'doc' -o -name 'docs' \) -exec rm -rf {} + 2>/dev/null || true
 
-FROM php:8.5-fpm-alpine
+FROM php:8.5.12-fpm-alpine
 
 COPY --from=caddy:2-alpine /usr/bin/caddy /usr/bin/caddy
 
